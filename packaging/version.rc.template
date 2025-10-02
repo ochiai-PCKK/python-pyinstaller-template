@@ -1,0 +1,17 @@
+1 VERSIONINFO
+FILEVERSION ${FILEVERSION_NUM}
+PRODUCTVERSION ${PRODUCTVERSION_NUM}
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "CompanyName", "YourOrg"
+      VALUE "FileDescription", "myapp"
+      VALUE "FileVersion", "${VERSION_STR}"
+      VALUE "ProductName", "myapp"
+      VALUE "ProductVersion", "${VERSION_STR}"
+      VALUE "OriginalFilename", "myapp.exe"
+    END
+  END
+END
