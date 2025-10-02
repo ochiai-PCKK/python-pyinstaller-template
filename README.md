@@ -1,0 +1,2 @@
+# python-pyinstaller-template
+Pyinstallerでビルドしたアプリをリリースするまでのワークフローのテンプレート
