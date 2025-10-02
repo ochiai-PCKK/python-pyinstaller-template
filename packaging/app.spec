@@ -1,34 +1,26 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import collect_submodules
+from pathlib import Path
 
-block_cipher = None
+SPEC_DIR = Path(SPECPATH).resolve()   # packaging/
+PROJECT_ROOT = SPEC_DIR.parent        # プロジェクトルート
 
 a = Analysis(
-    ['src/myapp/__main__.py'],
-    pathex=['.'],
+    [str(PROJECT_ROOT / 'src' / 'myapp' / '__main__.py')],  # 絶対パス化
+    pathex=[str(PROJECT_ROOT)],                             # ルートを探索パスに
     binaries=[],
     datas=[],
-    hiddenimports=collect_submodules('rich'),
+    hiddenimports=[
+        'encodings','encodings.utf_8','encodings.cp932','codecs',
+    ],
     hookspath=[],
     runtime_hooks=[],
     excludes=[],
     noarchive=False,
 )
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure, a.zipped_data)
 exe = EXE(
-    pyz,
-    a.scripts,
+    pyz, a.scripts, name='myapp', console=True,
     exclude_binaries=True,
-    name='myapp',
-    debug=False,
-    bootloader_ignore_signals=False,
-    strip=False,
-    upx=False,          # ← 誤検知回避のためUPX無効
-    console=True,
-    version_file='packaging/version.rc.txt',  # ← さっき生成するやつ
+    upx=False, version_file=str(SPEC_DIR / 'version.rc.txt'),
 )
-coll = COLLECT(
-    exe, a.binaries, a.zipfiles, a.datas,
-    strip=False, upx=False, upx_exclude=[],
-    name='myapp'
-)
+coll = COLLECT(exe, a.binaries, a.zipfiles, a.datas, name='myapp', upx=False)

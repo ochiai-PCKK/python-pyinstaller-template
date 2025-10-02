@@ -15,7 +15,7 @@ def main():
     print(f"==> Building version {version}")
 
     # PyInstaller
-    run("uv run pyinstaller packaging/app.spec --clean --noupx")
+    run("uv run pyinstaller packaging/app.spec --clean")
 
     # ZIP化
     out_dir = pathlib.Path("dist")
